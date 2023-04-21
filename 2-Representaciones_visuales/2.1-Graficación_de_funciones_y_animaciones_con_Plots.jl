@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.19
+# v0.19.22
 
 using Markdown
 using InteractiveUtils
@@ -182,6 +182,9 @@ md"por lo que no es necesario llamar dos funciones cuando querramos hacer esto. 
 md""" **Ejercicio** Define un parámetro interactivo `d` que controle el nivel de detalle de una gráfica tipo `plot` de las funciones `sin` y `cos` en el intervalo $[-\pi,\pi]$, con el título "Funciones trigonométricas", donde cada función se grafique con un color diferente y la leyenda indique el nombre de cada función.
 
 """
+
+# ╔═╡ 145f1395-7f65-4418-a08a-30f85a61d9dd
+
 
 # ╔═╡ acfe0334-c7aa-471f-b39e-8276e2e3dd42
 md"""#### El paquete `LaTeXStrings`
@@ -476,21 +479,72 @@ md"""**Ejercicio** Haz un código donde definas cuatro variables `h`, `r`, `θ` 
 
 Sugerencia: Repasa las ecuaciones cinemáticaticas del tiro parabólico e investiga los atributos `xaxis` y `yaxis` para poder fijar los ejes de la gráfica durante la animación."""
 
-# ╔═╡ 50f7f46b-081e-4b07-94af-1331b33a7c7f
+# ╔═╡ 3b7f1b24-51f8-42d0-bc9e-3d914500cd3c
 # Tu código (comentado) va aquí :D
+begin
+	function tiro_parabolico(h1,r,t,θ)
+	vx = r * cos(θ)	
+	vy = r * sin(θ)	
+
+	fx(x) = vx * x
+	fy(x) = (h1 + (vy) * x - ((9.8 * r * x^2) /2))	
+	p(x) = (fx(x), fy(x))
+
+	tiro_parabolico = @animate for t in 0:0.05:5.5
+		plot(p.(range(-(10),0,step = 0.1).+ t), legend = false, xlabel = "distancia", ylabel = "altura", title = "tiro parabolico", ls=:dot, lw=10, color = "blue")
+	scatter!([fx(t)],[fy(t)])
+	end 
+	gif(tiro_parabolico, "tiro parabolico.gif", fps = 30)
+	end
+end
+
+# ╔═╡ 04e27e16-2c34-4e16-94f0-7fb2b7a24c3f
+tiro_parabolico(5,14,20,30)
 
 # ╔═╡ 59ec3890-303c-436a-8043-8e6bc9c427ed
 md"**Ejercicio** Crea una función que tome parámetros `h`, `r`, `θ` y `t`, y haga lo descrito en el Ejercicio anterior."
 
 # ╔═╡ c3264b4d-81b1-4e0c-9205-ff818665788c
 # Tu código (comentado) va aquí :D
+begin
+
+ function tiro_p(h1,r,θ, t) #Definimos la función
+ vx=r*cos(θ)  #calculando la velocidad en x
+ vy=r*sin(θ)   #calculando la velocidad en y
+  
+ px(x) = vx*x #Calculando la posición en X
+ py(x) = (h1+(vy)*x - ((9.8*r*x^2)/2))   #Calculando la posición en Y
+ p(x) = (px(x), py(x)) #Esta es la función que se graficara (la union de las funciones px,py)
+        
+ 
+ tiro_parabolico = @animate for t in 0:0.3:6 #Animar la gráfica
+ plot(p.( range((-10),0, step = 0.3) .+ t), legend = false,  xlabel = "Distancia", ylabel = "Altura", title = "Tiro Parabólico", ls=:dot, lw=5, color = "blue") #La función dot para línea punteada y lw es el grosor de las lineas 
+  
+ scatter!([px(t)],[py(t)]) #Grafica del puntito de las posiciones en px y py 
+          end 
+ gif(tiro_parabolico, "Tiro_Parabólico.gif", fps = 10)   #Indica el tiempo que se tarda
+ end
+end
+
+# ╔═╡ a751d33d-1348-46f3-8c15-d42052c51d8b
+tiro_p(10,8,30,10)
 
 # ╔═╡ 77aacd79-26e3-40c2-ac22-f9121aac4155
 md"""**Ejercicio** Crea una animación de cómo la superficie obtenida de la función $h(x,y) = \cos(x) + \sin(y)$ se desplaza hacia el eje Y.
 """
 
-# ╔═╡ 4e68ad0c-17ef-41f7-b9fe-8561415bb7f2
-# Tu código (comentado) va aquí :D
+# ╔═╡ c0bb6876-7a24-4f27-9a6f-a2ad7a6117e2
+begin
+    n = 150
+    x = range(0,10,length = n) #rango donde irá x
+    y = x
+ 
+    @gif for i in range(0,2π,length = n)  
+        hn(x,y) = cos(x) + sin(y + 10cos(i))
+        p = plot(x,y,hn, st=:surface)                              
+        default(legend = false, xlabel = "Eje X", ylabel = "Eje y", zlabel = "Eje z", title = L"cos(x) + sin(y)")
+        end
+end
 
 # ╔═╡ 88299b4d-2a7d-4c18-956e-c6e75473c658
 md" ## Recursos complementarios
@@ -520,7 +574,7 @@ PlutoUI = "~0.7.38"
 PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.8.4"
+julia_version = "1.8.5"
 manifest_format = "2.0"
 project_hash = "77e2734aeac55d5109eeed492b1ea958eae44caf"
 
@@ -1475,6 +1529,7 @@ version = "0.9.1+5"
 # ╠═fc94b6e8-cae9-46bc-9ac4-9cee5e86c8ee
 # ╟─77a60b5d-ad7f-4c44-a68d-694417619668
 # ╟─8b8aff3c-3d88-4022-bc86-b75ebefde2a3
+# ╠═145f1395-7f65-4418-a08a-30f85a61d9dd
 # ╟─acfe0334-c7aa-471f-b39e-8276e2e3dd42
 # ╠═8302701b-02ac-4d35-b7de-5dec8fe701fb
 # ╟─02f9778e-21c8-42db-bed6-95a20d592f22
@@ -1511,11 +1566,13 @@ version = "0.9.1+5"
 # ╠═765a0e10-4217-4a50-8fb1-e46bee83aaa6
 # ╟─abbce622-7912-40ee-8632-261b5129dcb4
 # ╟─7577805b-1d52-47e4-aa45-2652943db1cf
-# ╠═50f7f46b-081e-4b07-94af-1331b33a7c7f
+# ╠═3b7f1b24-51f8-42d0-bc9e-3d914500cd3c
+# ╠═04e27e16-2c34-4e16-94f0-7fb2b7a24c3f
 # ╟─59ec3890-303c-436a-8043-8e6bc9c427ed
 # ╠═c3264b4d-81b1-4e0c-9205-ff818665788c
+# ╠═a751d33d-1348-46f3-8c15-d42052c51d8b
 # ╟─77aacd79-26e3-40c2-ac22-f9121aac4155
-# ╠═4e68ad0c-17ef-41f7-b9fe-8561415bb7f2
+# ╠═c0bb6876-7a24-4f27-9a6f-a2ad7a6117e2
 # ╟─88299b4d-2a7d-4c18-956e-c6e75473c658
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
