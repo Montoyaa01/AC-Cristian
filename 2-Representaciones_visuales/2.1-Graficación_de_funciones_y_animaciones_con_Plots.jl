@@ -183,8 +183,14 @@ md""" **Ejercicio** Define un parámetro interactivo `d` que controle el nivel d
 
 """
 
-# ╔═╡ 145f1395-7f65-4418-a08a-30f85a61d9dd
+# ╔═╡ c56603dc-04c4-4380-988a-45d238de5c5d
+@bind d Slider(0.05:0.005:1, default=0.5)
 
+# ╔═╡ ab3ac377-f7e0-4127-8158-0ad760829f08
+begin
+	plot(sin,-π:d:π, title = "Funciones trigonométricas", xlabel = "x", ylabel = "y", color = "pink", label = "\$\\sin(x)\$")
+    plot!(cos,-π:d:π, color = "blue", label = "\$\\cos(x)\$",)
+end
 
 # ╔═╡ acfe0334-c7aa-471f-b39e-8276e2e3dd42
 md"""#### El paquete `LaTeXStrings`
@@ -1511,7 +1517,7 @@ version = "0.9.1+5"
 # ╠═98c6c916-cdfa-4bc1-baad-8888aace5c98
 # ╟─c6a475fd-bef2-4c09-a03b-211f6676d215
 # ╟─7a1e75c3-d56b-411e-a82c-f4b53302ac23
-# ╠═d2472d6a-7072-49ae-ba55-207db17be3ca
+# ╟─d2472d6a-7072-49ae-ba55-207db17be3ca
 # ╟─4d136dae-c66d-4c9e-a267-12b2fa9fd596
 # ╠═cdd16f8e-e945-4d5f-a71d-6896f9146512
 # ╠═af69d454-96fc-4e92-af71-1251cf99ae38
@@ -1529,13 +1535,14 @@ version = "0.9.1+5"
 # ╠═fc94b6e8-cae9-46bc-9ac4-9cee5e86c8ee
 # ╟─77a60b5d-ad7f-4c44-a68d-694417619668
 # ╟─8b8aff3c-3d88-4022-bc86-b75ebefde2a3
-# ╠═145f1395-7f65-4418-a08a-30f85a61d9dd
+# ╠═c56603dc-04c4-4380-988a-45d238de5c5d
+# ╠═ab3ac377-f7e0-4127-8158-0ad760829f08
 # ╟─acfe0334-c7aa-471f-b39e-8276e2e3dd42
 # ╠═8302701b-02ac-4d35-b7de-5dec8fe701fb
 # ╟─02f9778e-21c8-42db-bed6-95a20d592f22
 # ╟─1907f78f-e429-4a77-a90e-c9ebb94d6385
 # ╠═18368069-bf83-48e9-a6df-a2b5e6181277
-# ╟─ec3dfa07-89c8-48a3-adaf-021c311d2c0d
+# ╠═ec3dfa07-89c8-48a3-adaf-021c311d2c0d
 # ╠═73d1cb8f-4fc5-4a11-885d-9bc97ecd73d9
 # ╟─324cf67f-7cf1-4613-b072-aff38958612f
 # ╠═7c580a14-b5ec-4bb1-960b-fbce583a9b62
