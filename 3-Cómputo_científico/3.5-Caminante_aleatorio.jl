@@ -165,6 +165,17 @@ function graficaCaminata!(caminataleatoria)
     plot!(1:n, caminataleatoria, seriestype = :path)             
 end
 
+# ╔═╡ fb32475d-b59c-4685-a24b-471cbae610fb
+begin
+n = 500                                                
+for i in 1:5                                           
+	caminataleato = caminataAleatoria(n)               
+	graficaCaminata!(caminataleato)                    
+end
+xlabel!("Número de pasos")                             
+ylabel!("Posición")
+end
+
 # ╔═╡ dee348a2-7f1d-4c5f-995d-aa0f555e0b2e
 rand(n)
 
@@ -350,23 +361,6 @@ md""" ## Recursos complementarios
 md""" ## Créditos
 Este _notebook_ de Pluto fue basado parcialmente en los _notebooks_ de Jupyter `4. Caminatas aleatorias.ipynb` y `Tarea 1.ipynb` del repositorio [`FisicaComputacional2019_3`](https://github.com/dpsanders/FisicaComputacional2019_3/) del Dr. David Philip Sanders. 
 """
-
-# ╔═╡ 4ef22e81-2ad2-49e3-b854-c3494bc367f9
-# ╠═╡ disabled = true
-#=╠═╡
-n = 5
-  ╠═╡ =#
-
-# ╔═╡ fb32475d-b59c-4685-a24b-471cbae610fb
-begin
-n = 500                                                
-for i in 1:5                                           
-	caminataleato = caminataAleatoria(n)               
-	graficaCaminata!(caminataleato)                    
-end
-xlabel!("Número de pasos")                             
-ylabel!("Posición")
-end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
